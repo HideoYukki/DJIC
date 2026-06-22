@@ -6,8 +6,10 @@ const REFRESH_KEY = 'djic_refresh'
 
 export const isServerOffline = ref(false)
 
+const BASE = (import.meta.env.VITE_API_URL ?? 'http://localhost:8000') + '/api'
+
 export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL ?? 'http://localhost:8000/api',
+  baseURL: BASE,
   headers: { 'Content-Type': 'application/json' },
 })
 
@@ -67,7 +69,7 @@ api.interceptors.response.use(
 
     try {
       const { data } = await axios.post(
-        `${import.meta.env.VITE_API_URL ?? 'http://localhost:8000/api'}/auth/token/refresh/`,
+        `${BASE}/auth/token/refresh/`,
         { refresh: refreshToken },
       )
       saveTokens(data.access, refreshToken)
