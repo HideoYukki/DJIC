@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+﻿import { defineStore } from 'pinia'
 import { api, saveTokens, clearTokens } from '@/api'
 
 const SESSION_KEY = 'djic_user'
@@ -30,7 +30,7 @@ export const useAuthStore = defineStore('auth', {
       this.loading = true
       this.error = null
       try {
-        const { data } = await api.post('/auth/login/', { email, password })
+        const { data } = await api.post('auth/login/', { email, password })
         saveTokens(data.access, data.refresh)
         this._setUser(data.user)
         return { ok: true, role: data.user.role }
@@ -47,7 +47,7 @@ export const useAuthStore = defineStore('auth', {
       this.loading = true
       this.error = null
       try {
-        await api.post('/auth/register/', payload)
+        await api.post('auth/register/', payload)
         return { ok: true }
       } catch (err) {
         this.error = err.response?.data?.error ?? 'Błąd rejestracji. Spróbuj ponownie.'
@@ -61,7 +61,7 @@ export const useAuthStore = defineStore('auth', {
     async logout() {
       try {
         const refresh = localStorage.getItem('djic_refresh')
-        if (refresh) await api.post('/auth/logout/', { refresh })
+        if (refresh) await api.post('auth/logout/', { refresh })
       } catch (_) {
         // Wyloguj lokalnie nawet jeśli serwer nie odpowie
       } finally {
@@ -74,7 +74,7 @@ export const useAuthStore = defineStore('auth', {
     // ── Odświeżenie danych profilu ────────────────────────────────────────────
     async fetchMe() {
       try {
-        const { data } = await api.get('/users/me/')
+        const { data } = await api.get('users/me/')
         this._setUser({ ...this.user, ...data })
       } catch (_) {}
     },

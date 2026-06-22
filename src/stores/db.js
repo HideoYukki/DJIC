@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+﻿import { defineStore } from 'pinia'
 import { api } from '@/api'
 
 export const useDbStore = defineStore('db', {
@@ -72,7 +72,7 @@ export const useDbStore = defineStore('db', {
   actions: {
     async fetchCourses(params = {}) {
       try {
-        const { data } = await api.get('/courses/', { params })
+        const { data } = await api.get('courses/', { params })
         if (data.results?.length) this.courses = data.results.map(_normalizeCourse)
       } catch (_) {}
     },
@@ -100,7 +100,7 @@ export const useDbStore = defineStore('db', {
 
     async fetchEnrollments(userId) {
       try {
-        const { data } = await api.get('/enrollments/')
+        const { data } = await api.get('enrollments/')
         const results = data.results ?? []
         this.enrollments = results.map(e => ({
           userId,
@@ -129,7 +129,7 @@ export const useDbStore = defineStore('db', {
 
     async fetchProgress(userId) {
       try {
-        const { data } = await api.get('/progress/')
+        const { data } = await api.get('progress/')
         const records = data.results ?? []
         this.progress = records.flatMap(p =>
           (p.completed_material_ids ?? []).map(mid => ({
@@ -144,7 +144,7 @@ export const useDbStore = defineStore('db', {
 
     async fetchAchievements(userId) {
       try {
-        const { data } = await api.get('/achievements/')
+        const { data } = await api.get('achievements/')
         if (data.results?.length) {
           this.achievements = data.results.map(a => ({
             id:          a.badge_id,
@@ -166,7 +166,7 @@ export const useDbStore = defineStore('db', {
 
     async enroll(userId, courseId) {
       if (this.isEnrolled(userId, courseId)) return
-      await api.post('/enrollments/', { course_id: String(courseId) })
+      await api.post('enrollments/', { course_id: String(courseId) })
       this.enrollments.push({ userId, courseId: String(courseId), enrolledAt: new Date().toISOString().slice(0, 10) })
       const course = this.getCourseById(courseId)
       if (course) course.studentsCount = (course.studentsCount ?? 0) + 1

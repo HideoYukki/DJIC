@@ -1,4 +1,4 @@
-<script setup>
+﻿<script setup>
 import { ref, computed, onMounted } from 'vue'
 import { api } from '@/api'
 
@@ -6,7 +6,7 @@ const courses = ref([])
 
 onMounted(async () => {
   try {
-    const { data } = await api.get('/admin/courses/')
+    const { data } = await api.get('admin/courses/')
     courses.value = (data.results ?? []).map(c => ({
       id: c.id,
       title: c.title,

@@ -1,4 +1,4 @@
-<script setup>
+﻿<script setup>
 import { ref, onMounted } from 'vue'
 import { api } from '@/api'
 
@@ -10,7 +10,7 @@ const downloadReport = (id) => {
 
 onMounted(async () => {
   try {
-    const { data } = await api.get('/courses/creator/')
+    const { data } = await api.get('courses/creator/')
     reports.value = (data.results ?? data ?? []).map(c => ({
       id: c.id,
       course: c.title,

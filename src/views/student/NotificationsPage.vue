@@ -1,4 +1,4 @@
-<script setup>
+﻿<script setup>
 import { ref, computed, onMounted } from 'vue'
 import { api } from '@/api'
 
@@ -8,7 +8,7 @@ const unreadCount = computed(() => notifications.value.filter(n => !n.read).leng
 
 const markAllRead = async () => {
   notifications.value.forEach(n => (n.read = true))
-  try { await api.patch('/notifications/read-all/') } catch (_) {}
+  try { await api.patch('notifications/read-all/') } catch (_) {}
 }
 
 const markRead = async (id) => {
@@ -27,7 +27,7 @@ const typeColor = (type) => ({
 
 onMounted(async () => {
   try {
-    const { data } = await api.get('/notifications/')
+    const { data } = await api.get('notifications/')
     notifications.value = (data.results ?? []).map(n => ({
       id: n.id,
       type: n.type ?? 'info',

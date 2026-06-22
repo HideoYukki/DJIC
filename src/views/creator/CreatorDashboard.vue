@@ -1,4 +1,4 @@
-<script setup>
+﻿<script setup>
 import { ref, onMounted } from 'vue'
 import { api } from '@/api'
 
@@ -17,8 +17,8 @@ const statusBadge = (s) => ({ ACTIVE: { label: 'Aktywny', color: '#10b981' }, DR
 onMounted(async () => {
   try {
     const [coursesRes, summaryRes] = await Promise.all([
-      api.get('/courses/creator/'),
-      api.get('/analytics/creator/summary/'),
+      api.get('courses/creator/'),
+      api.get('analytics/creator/summary/'),
     ])
     courses.value = (coursesRes.data.results ?? coursesRes.data ?? []).map(c => ({
       id: c.id,

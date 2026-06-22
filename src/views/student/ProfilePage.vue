@@ -1,4 +1,4 @@
-<script setup>
+﻿<script setup>
 import { reactive, ref, computed, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { api } from '@/api'
@@ -26,7 +26,7 @@ const onAvatarSelected = async (e) => {
   try {
     const fd = new FormData()
     fd.append('file', file)
-    const { data } = await api.post('/users/me/avatar/', fd, {
+    const { data } = await api.post('users/me/avatar/', fd, {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
     avatarUrl.value = data.avatar_url
@@ -49,7 +49,7 @@ const serverError = ref('')
 
 onMounted(async () => {
   try {
-    const { data } = await api.get('/users/me/')
+    const { data } = await api.get('users/me/')
     const [first = '', ...rest] = (data.name ?? '').split(' ')
     profile.firstName = first
     profile.lastName  = rest.join(' ')
@@ -68,7 +68,7 @@ const saveProfile = async () => {
   isSaving.value = true
   serverError.value = ''
   try {
-    await api.patch('/users/me/', {
+    await api.patch('users/me/', {
       name: `${profile.firstName.trim()} ${profile.lastName.trim()}`.trim(),
       bio: profile.bio,
     })
@@ -87,7 +87,7 @@ const changePassword = async () => {
   if (passwordForm.newPass.length < 8) { passwordError.value = 'Minimum 8 znaków.'; return }
   if (passwordForm.newPass !== passwordForm.confirm) { passwordError.value = 'Hasła nie są identyczne.'; return }
   try {
-    await api.post('/users/me/password/', { old_password: passwordForm.current, new_password: passwordForm.newPass })
+    await api.post('users/me/password/', { old_password: passwordForm.current, new_password: passwordForm.newPass })
     passwordSaved.value = true
     Object.assign(passwordForm, { current: '', newPass: '', confirm: '' })
     setTimeout(() => (passwordSaved.value = false), 3000)

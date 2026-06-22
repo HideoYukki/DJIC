@@ -1,4 +1,4 @@
-<script setup>
+﻿<script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { api } from '@/api'
@@ -41,7 +41,7 @@ async function submit() {
   saving.value = true
   serverError.value = ''
   try {
-    await api.post('/users/', {
+    await api.post('users/', {
       name:     form.value.name,
       email:    form.value.email,
       role:     form.value.role,

@@ -1,4 +1,4 @@
-<script setup>
+﻿<script setup>
 import { ref, onMounted } from 'vue'
 import { api } from '@/api'
 
@@ -17,7 +17,7 @@ const serverError = ref('')
 
 onMounted(async () => {
   try {
-    const { data } = await api.get('/admin/settings/')
+    const { data } = await api.get('admin/settings/')
     if (data.max_courses_per_creator) settings.value.maxCoursesPerCreator = Number(data.max_courses_per_creator)
     if (data.registration_enabled !== undefined) settings.value.allowRegistration = data.registration_enabled === 'true'
     if (data.maintenance_mode !== undefined) settings.value.maintenanceMode = data.maintenance_mode === 'true'
@@ -28,7 +28,7 @@ async function saveSettings() {
   saving.value = true
   serverError.value = ''
   try {
-    await api.patch('/admin/settings/', {
+    await api.patch('admin/settings/', {
       max_courses_per_creator: String(settings.value.maxCoursesPerCreator),
       registration_enabled: String(settings.value.allowRegistration),
       maintenance_mode: String(settings.value.maintenanceMode),

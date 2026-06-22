@@ -1,4 +1,4 @@
-<script setup>
+﻿<script setup>
 import { ref, onMounted } from 'vue'
 import { api } from '@/api'
 
@@ -17,9 +17,9 @@ const activityIcon = (type) => ({ user: '👤', course: '📚', publish: '✅', 
 onMounted(async () => {
   try {
     const [summaryRes, coursesRes, logsRes] = await Promise.all([
-      api.get('/analytics/admin/summary/'),
-      api.get('/admin/courses/'),
-      api.get('/admin/logs/?page_size=5'),
+      api.get('analytics/admin/summary/'),
+      api.get('admin/courses/'),
+      api.get('admin/logs/?page_size=5'),
     ])
     const s = summaryRes.data
     stats.value[0].value = String(s.total_users ?? '—')

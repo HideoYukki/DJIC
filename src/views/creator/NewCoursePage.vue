@@ -1,4 +1,4 @@
-<script setup>
+﻿<script setup>
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { api } from '@/api'
@@ -57,7 +57,7 @@ const handleSubmit = async () => {
   submitting.value = true
   serverError.value = ''
   try {
-    const { data } = await api.post('/courses/new/', {
+    const { data } = await api.post('courses/new/', {
       title: form.title,
       description: form.description,
       category: form.category,

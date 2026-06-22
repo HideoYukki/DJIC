@@ -1,4 +1,4 @@
-<script setup>
+﻿<script setup>
 import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { api } from '@/api'
@@ -18,7 +18,7 @@ const handleSubmit = async () => {
   if (password.value !== confirmPassword.value) { error.value = 'Hasła muszą być identyczne.'; return }
   loading.value = true
   try {
-    await api.post('/auth/reset-password/', { token: route.params.token, password: password.value })
+    await api.post('auth/reset-password/', { token: route.params.token, password: password.value })
     done.value = true
   } catch (err) {
     error.value = err.response?.data?.error ?? 'Nieprawidłowy lub wygasły link resetowania hasła.'

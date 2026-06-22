@@ -1,4 +1,4 @@
-<script setup>
+﻿<script setup>
 import { ref, computed, onMounted } from 'vue'
 import { api } from '@/api'
 
@@ -6,7 +6,7 @@ const logs = ref([])
 
 onMounted(async () => {
   try {
-    const { data } = await api.get('/admin/logs/?page_size=50')
+    const { data } = await api.get('admin/logs/?page_size=50')
     logs.value = (data.results ?? []).map(l => ({
       id: l.id,
       level: l.level ?? 'INFO',
@@ -47,7 +47,7 @@ const exportCsv = async () => {
   exportingCsv.value = true
   try {
     const params = levelFilter.value !== 'ALL' ? { level: levelFilter.value } : {}
-    const { data } = await api.get('/admin/logs/export/', { params, responseType: 'blob' })
+    const { data } = await api.get('admin/logs/export/', { params, responseType: 'blob' })
     const url = URL.createObjectURL(new Blob([data], { type: 'text/csv;charset=utf-8' }))
     const a = document.createElement('a')
     a.href = url

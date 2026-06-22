@@ -1,4 +1,4 @@
-<script setup>
+﻿<script setup>
 import { ref } from 'vue'
 import { api } from '@/api'
 
@@ -12,7 +12,7 @@ const handleSubmit = async () => {
   loading.value = true
   serverError.value = ''
   try {
-    await api.post('/auth/forgot-password/', { email: email.value })
+    await api.post('auth/forgot-password/', { email: email.value })
     sent.value = true
   } catch (err) {
     serverError.value = err.response?.data?.error ?? 'Błąd wysyłania. Spróbuj ponownie.'

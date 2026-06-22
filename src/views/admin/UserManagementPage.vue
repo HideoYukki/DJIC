@@ -1,4 +1,4 @@
-<script setup>
+﻿<script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { api } from '@/api'
@@ -21,7 +21,7 @@ const roleColor = (r) => roleColors[r] || '#64748b'
 
 onMounted(async () => {
   try {
-    const { data } = await api.get('/users/')
+    const { data } = await api.get('users/')
     users.value = (data.results ?? []).map(u => ({
       id: u.id,
       name: u.name ?? '—',

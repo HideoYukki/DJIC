@@ -1,4 +1,4 @@
-<script setup>
+﻿<script setup>
 import { ref, computed, onMounted } from 'vue'
 import { api } from '@/api'
 
@@ -28,7 +28,7 @@ const deleteCourse = async (id) => {
 
 onMounted(async () => {
   try {
-    const { data } = await api.get('/courses/creator/')
+    const { data } = await api.get('courses/creator/')
     courses.value = (data.results ?? data ?? []).map(c => ({
       id: c.id,
       title: c.title,
