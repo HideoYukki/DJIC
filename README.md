@@ -1,2 +1,0 @@
-# DJIC
-DJIC
